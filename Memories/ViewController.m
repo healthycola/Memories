@@ -21,6 +21,10 @@ NSString* APP_CLIENT_ID=@"000000004810CD20";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    /*
+     Performs an asynchronous initialize of a new instance of the LiveConnectClient class with a client ID, a scopes, and optionally, a LiveAuthDelegate and a user state.
+     */
     self.liveClient = [[LiveConnectClient alloc] initWithClientId:APP_CLIENT_ID
                                                          delegate:self
                                                         userState:@"initialize"];
@@ -35,6 +39,10 @@ NSString* APP_CLIENT_ID=@"000000004810CD20";
     {
         //wl.basic,wl.signin,wl.offline_access,wl.skydrive,wl.photos
         [self.infoLabel setText:@"Initialized."];
+        
+        /*
+         Performs an asynchronous login by presenting a modal window and showing login and authorization forms so that the user can log in using a Microsoft account and authorize the app to access the Live Connect services on the user's behalf. 
+         */
         [self.liveClient login:self
                         scopes:[NSArray arrayWithObjects:@"wl.signin", @"wl.offline_access", @"wl.basic", @"wl.photos", @"wl.skydrive", nil]
                       delegate:self
@@ -45,6 +53,10 @@ NSString* APP_CLIENT_ID=@"000000004810CD20";
         if (session != nil)
         {
             [self.infoLabel setText:@"Signed in."];
+            NSLog(@"AccessToken");
+            NSLog(session.accessToken);
+            NSLog(@"RefreshToken");
+            NSLog(session.refreshToken);
         }
     }
 }
